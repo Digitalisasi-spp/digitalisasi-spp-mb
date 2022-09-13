@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import IconFeather from "react-native-vector-icons/Feather";
-import { Home, Message } from "../screens";
+import { Home, Message, Profile } from "../screens";
 
 const Tabs = createBottomTabNavigator();
 
@@ -37,7 +37,7 @@ const Navigation = () => {
       />
       <Tabs.Screen
         name="profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => {
             if (focused) {

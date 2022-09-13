@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Navigation from "./navigation/Tabs";
-import { Welcome, Auth } from "./screens";
+import { Welcome, Auth, Bukti } from "./screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +19,7 @@ export default function App() {
         <Stack.Screen name="welcome" component={Welcome} />
         <Stack.Screen name="login" component={Auth} />
         <Stack.Screen name="home" component={Navigation} />
+        <Stack.Screen name="bukti" component={Bukti} />
       </Stack.Navigator>
     </NavigationContainer>
   );

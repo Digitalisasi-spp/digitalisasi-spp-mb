@@ -16,8 +16,8 @@ const pageMenu = [
     icon: <IconFeather name="camera" size={24} color="#fff" />,
   },
   {
-    title: "Upload",
-    page: "proof",
+    title: "Bukti",
+    page: "bukti",
     icon: <IconFeather name="clipboard" size={24} color="#fff" />,
   },
   {
@@ -32,7 +32,7 @@ const pageMenu = [
   },
 ];
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <ScrollView
       showVerticalScrollIndicator={false}
@@ -86,7 +86,10 @@ const Home = () => {
       <View className="flex-row justify-between items-center mt-7">
         {pageMenu.map((item, idx) => (
           <View className="w-[22%]" key={idx}>
-            <TouchableOpacity className="w-full py-3 rounded-md bg-blue-500 flex-row items-center justify-center">
+            <TouchableOpacity
+              onPress={() => navigation.navigate(item.page)}
+              className="w-full py-4 rounded-md bg-blue-500 flex-row items-center justify-center"
+            >
               {item.icon}
             </TouchableOpacity>
             <Text className="text-sm text-center font-semibold capitalize mt-2">
