@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 import { ProfileData, ModalWrapper } from "../components";
 

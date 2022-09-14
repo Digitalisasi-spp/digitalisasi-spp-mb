@@ -5,7 +5,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 
 const ProfileData = ({ title, data, children }) => {
@@ -15,7 +15,7 @@ const ProfileData = ({ title, data, children }) => {
     return (
       <View className="w-full mt-3 px-7">
         <Text className="font-medium mb-3">{title}</Text>
-        <View className="flex-1 flex-row border-b border-gray-400 pb-3">
+        <View className="flex-1 flex-row border-b border-gray-300 pb-3">
           {children}
 
           <Text className="font-medium text-gray-400 ml-2">{data}</Text>

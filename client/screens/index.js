@@ -4,5 +4,6 @@ import Home from "./Home";
 import Message from "./Message";
 import Profile from "./Profile";
 import Bukti from "./Bukti";
+import ListBukti from "./ListBukti";
 
-export { Welcome, Auth, Home, Message, Profile, Bukti };
+export { Welcome, Auth, Home, Message, Profile, Bukti, ListBukti };
