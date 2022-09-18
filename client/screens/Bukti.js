@@ -6,18 +6,18 @@ import {
   TouchableOpacity,
   TextInput,
   SectionList,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState } from "react";
 import IconFeather from "react-native-vector-icons/Feather";
 import { UploadModal } from "../components";
-import DropDownPicker from "react-native-dropdown-picker";
+import SelectDropdown from "react-native-select-dropdown";
 
-const Bukti = () => {
+const Bukti = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [uploadFiles, setUploadFiles] = useState([]);
-
   return (
-    <SafeAreaView className="flex-1 py-5 bg-white">
+    <SafeAreaView className="flex-1 bg-white">
       <UploadModal
         visible={visible}
         setUploadFiles={setUploadFiles}
@@ -41,17 +41,47 @@ const Bukti = () => {
           <Text className="text-blue-600 mt-3">Telusuri</Text>
         </TouchableOpacity>
         <View className="mx-7 mt-10">
-          <Text className="text-gray-500 ">Tanggal Pembayaran</Text>
-          <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
-          <Text className="text-gray-500 mt-3 ">Total Pembayaran</Text>
-          <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
-          <Text className="text-gray-500 mt-3 ">Keterangan (Opsional)</Text>
-          <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
+          <View className="">
+            <Text className="text-gray-500">Pilih Bank</Text>
+            <SelectDropdown
+              buttonStyle={{
+                backgroundColor: "#fff",
+                borderWidth: 1,
+                borderColor: "#ddd",
+                width: "100%",
+                marginTop: 10,
+              }}
+              buttonTextStyle={{
+                fontSize: 15,
+              }}
+              defaultButtonText="Pilih Bank"
+              className="w-full"
+              data={["BCA", "MAYBANK", "MANDIRI", "PERMATA"]}
+            />
+          </View>
+          <View className="mt-3 mb-3">
+            <Text className="text-gray-500 ">Tanggal Pembayaran</Text>
+            <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
+          </View>
+
+          <View className="mt-2 mb-3">
+            <Text className="text-gray-500">Total Pembayaran</Text>
+            <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
+          </View>
+          <View className="mt-2">
+            <Text className="text-gray-500">Keterangan (Opsional)</Text>
+            <TextInput className="mt-2 p-2 border-gray-200 border-2 rounded-lg"></TextInput>
+          </View>
           <TouchableOpacity className="py-3 mt-7  bg-blue-500 rounded-full items-center justify-center">
             <Text className="text-white text-center font-bold">
               Kirim Bukti
             </Text>
           </TouchableOpacity>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <Text className="text-center text-gray-400 mt-5 mb-5 text-sm">
+              Back
+            </Text>
+          </TouchableWithoutFeedback>
         </View>
       </ScrollView>
     </SafeAreaView>

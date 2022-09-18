@@ -1,31 +1,59 @@
-import { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import IconFeather from "react-native-vector-icons/Feather";
 import * as ImagePicker from "expo-image-picker";
+import TesseractOcr, { LANG_ENGLISH } from "react-native-tesseract-ocr";
 
 const UploadModal = ({ visible, setVisible }) => {
   const [datas, setDatas] = useState([]);
+  const [image, setImage] = useState(null);
+
+  const recognizeText = async (uri) => {
+    const recogText = await TesseractOcr.recognize(uri, LANG_ENGLISH);
+    console.log(recogText);
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [6, 6],
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setDatas([...datas, result.uri]);
+      setDatas([
+        ...datas,
+        { id: Math.floor(Math.random() * 10000) + 1, title: result.uri },
+      ]);
     }
   };
 
   const renderItem = ({ item }) => {
     return (
-      <View className="w-full bg-gray-200 rounded-md py-2 px-3">
-        <Text className="font-medium text-gray-800">
-          {item.substring(0, 80)}
+      <View className="w-full bg-gray-200 rounded-md py-3 mt-2 px-3  flex-row items-center justify-between">
+        <Text className="font-medium text-gray-700 flex-1">
+          {item?.title?.substring(0, 35)}...
         </Text>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            const filtered = datas.filter((data) =>
+              data.id !== item.id ? data : ""
+            );
+            setDatas(filtered);
+          }}
+        >
+          <IconFeather size={16} name="x" color="#555" />
+        </TouchableWithoutFeedback>
       </View>
     );
   };
@@ -56,16 +84,17 @@ const UploadModal = ({ visible, setVisible }) => {
                 Pilih File
               </Text>
             </View>
-            <View className="my-5">
-              {datas.length > 0 && (
-                <FlatList
-                  data={datas}
-                  keyExtractor={(item) => item}
-                  renderItem={renderItem}
-                />
-              )}
-            </View>
           </TouchableOpacity>
+          <View className="my-5">
+            {datas.length > 0 && (
+              <FlatList
+                data={datas}
+                keyExtractor={(item) => item}
+                renderItem={renderItem}
+              />
+            )}
+          </View>
+
           <TouchableOpacity className="rounded-full py-3 bg-blue-500 mt-10">
             <Text className="text-center text-white font-medium">Submit</Text>
           </TouchableOpacity>
